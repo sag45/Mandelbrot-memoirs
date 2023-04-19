@@ -1,0 +1,38 @@
+%MATLAB Code to dislplay Mandelbrot Sets. 
+%@author: Sagnik Banerjee 
+clear 
+clc
+% Define the boundaries of the plot
+xMin = -2;
+xMax = 1;
+yMin = -1.5;
+yMax = 1.5;
+
+% Set the resolution of the plot
+nX = 1000;
+nY = 1000;
+
+% Initialize the arrays
+x = linspace(xMin, xMax, nX);
+y = linspace(yMin, yMax, nY);
+[X, Y] = meshgrid(x, y);
+Z = X + 1i*Y;
+C = Z;
+
+% Compute the Mandelbrot set
+for k = 1:100
+    Z = Z.^2 + C;
+    idx = abs(Z) > 2;
+    C(idx) = NaN;
+    Z(idx) = NaN;
+end
+
+% Display the plot
+figure;
+imagesc(x, y, abs(C));
+colormap(jet);%can also use "hot" as the colormap specification. 
+axis equal;
+axis tight;
+xlabel('Real Axis');
+ylabel('Imaginary Axis');
+title('Mandelbrot Set');
